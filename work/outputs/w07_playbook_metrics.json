@@ -1,0 +1,26 @@
+{
+  "project": "FlyRank content action playbook",
+  "model": "Logistic Regression",
+  "validation": {
+    "split": "client_grouped_80_20",
+    "random_state": 42,
+    "train_rows": 137445,
+    "test_rows": 21104,
+    "train_clients": 36,
+    "test_clients": 10,
+    "client_overlap": 0,
+    "base_rate": 0.7731235784685367,
+    "accuracy": 0.7559230477634572,
+    "balanced_accuracy": 0.5881140448162164,
+    "roc_auc": 0.6625587511620434,
+    "average_precision": 0.8557395332186539,
+    "precision_at_50": 0.94,
+    "precision_at_100": 0.96
+  },
+  "queue": {
+    "rows": 21104,
+    "priority_definition": "model_risk_score multiplied by log1p(impressions)",
+    "priority_score_is_roi": false,
+    "model_score_is_calibrated_probability": false
+  }
+}
