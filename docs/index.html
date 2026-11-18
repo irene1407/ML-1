@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Research on predicting search ranking deterioration using machine learning and historical search performance signals.">
+  <title>Can Search Signals Predict Ranking Deterioration? | FlyRank Research</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">FLYRANK <span>RESEARCH</span></a>
+    <nav>
+      <a href="#problem">Research</a>
+      <a href="#method">Methodology</a>
+      <a href="#results">Results</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+    <span class="tag">ML CAPSTONE · 2026</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">APPLIED MACHINE LEARNING · RANKING SIGNAL ANALYSIS</p>
+      <h1>Can Search Performance Signals Predict Ranking Deterioration?</h1>
+      <p class="hero-description">
+        Investigating whether historical search-performance signals can identify
+        content at risk of ranking deterioration using machine learning.
+      </p>
+      <div class="author-line">
+        <span>E Shirley Iren</span>
+        <span>November 17, 2026</span>
+        <span>FlyRank ML Internship Capstone</span>
+      </div>
+      <div class="hero-links">
+        <a class="primary-link" href="#results">Explore the findings ↓</a>
+        <a href="https://github.com/irene1407/ML-1" target="_blank" rel="noopener">View source code ↗</a>
+      </div>
+    </section>
+
+    <section class="abstract section" id="problem">
+      <p class="eyebrow">01 / ABSTRACT</p>
+      <h2>The research question</h2>
+      <p>
+        Can March 2026 search-performance signals help identify client-content
+        pairs whose average search ranking deteriorates in April 2026?
+      </p>
+      <p>
+        This study uses anonymized historical performance data, a rule-based
+        baseline, Logistic Regression and Random Forest. Models are evaluated
+        using a client-grouped train-test split to assess performance on
+        previously unseen clients.
+      </p>
+      <p>
+        Logistic Regression achieved 0.6626 ROC-AUC, 0.8557 Average Precision
+        and 96% Precision@100. It outperformed the baseline at the evaluated
+        top-ranking cutoffs, although the results remain specific to this
+        validation sample.
+      </p>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">02 / PROBLEM</p>
+      <h2>Turning search signals into useful priorities</h2>
+      <p>
+        Search-performance data contains signals such as impressions, clicks,
+        click-through rate and average position. The challenge is identifying
+        which client-content pairs may need closer investigation.
+      </p>
+      <div class="info-grid">
+        <article class="info-card">
+          <span class="card-number">01</span>
+          <h3>Feature window</h3>
+          <p>March 2026 search-performance observations.</p>
+        </article>
+        <article class="info-card">
+          <span class="card-number">02</span>
+          <h3>Outcome window</h3>
+          <p>April 2026 ranking-position observations.</p>
+        </article>
+        <article class="info-card">
+          <span class="card-number">03</span>
+          <h3>Unit of analysis</h3>
+          <p>One client-content pair per observation.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <p class="eyebrow">03 / METHODOLOGY</p>
+      <h2>From historical data to model evaluation</h2>
+      <p>
+        March performance signals were aggregated into client-content features.
+        The binary target indicates whether April's impression-weighted average
+        position was numerically higher, and therefore worse, than March's.
+      </p>
+      <div class="feature-list">
+        <span>Impressions</span>
+        <span>Clicks</span>
+        <span>Average position</span>
+        <span>March CTR</span>
+        <span>Active days</span>
+      </div>
+      <div class="method-flow">
+        <div><strong>01</strong><span>Data preparation</span></div>
+        <div><strong>02</strong><span>Baseline scoring</span></div>
+        <div><strong>03</strong><span>Model training</span></div>
+        <div><strong>04</strong><span>Grouped validation</span></div>
+        <div><strong>05</strong><span>Action prioritization</span></div>
+      </div>
+      <p class="small-note">
+        Validation used an 80/20 client-grouped split with random state 42.
+        The training set contained 36 clients and the test set contained 10,
+        with zero client overlap.
+      </p>
+    </section>
+
+    <section class="section" id="results">
+      <p class="eyebrow">04 / RESULTS</p>
+      <h2>What did the models learn?</h2>
+      <p>
+        Logistic Regression and Random Forest were compared on the same
+        grouped test set of 21,104 observations.
+      </p>
+
+      <div class="metric-grid">
+        <article class="metric-card">
+          <span>TEST OBSERVATIONS</span>
+          <strong>21,104</strong>
+        </article>
+        <article class="metric-card">
+          <span>ROC-AUC</span>
+          <strong>0.6626</strong>
+          <small>Logistic Regression</small>
+        </article>
+        <article class="metric-card">
+          <span>AVERAGE PRECISION</span>
+          <strong>0.8557</strong>
+          <small>Logistic Regression</small>
+        </article>
+        <article class="metric-card highlight">
+          <span>PRECISION@100</span>
+          <strong>96%</strong>
+          <small>Logistic Regression</small>
+        </article>
+      </div>
+
+      <h3 class="chart-title">Model comparison</h3>
+      <div class="chart-card">
+        <p class="chart-label">Accuracy</p>
+        <div class="bar-row">
+          <span>Logistic Regression</span>
+          <div class="bar-track"><div class="bar red" style="width:75.59%"></div></div>
+          <b>75.59%</b>
+        </div>
+        <div class="bar-row">
+          <span>Random Forest</span>
+          <div class="bar-track"><div class="bar navy" style="width:69.08%"></div></div>
+          <b>69.08%</b>
+        </div>
+
+        <p class="chart-label">ROC-AUC</p>
+        <div class="bar-row">
+          <span>Logistic Regression</span>
+          <div class="bar-track"><div class="bar red" style="width:66.26%"></div></div>
+          <b>0.6626</b>
+        </div>
+        <div class="bar-row">
+          <span>Random Forest</span>
+          <div class="bar-track"><div class="bar navy" style="width:67.26%"></div></div>
+          <b>0.6726</b>
+        </div>
+      </div>
+      <p class="caption">
+        Logistic Regression achieved higher accuracy, while Random Forest
+        achieved slightly higher ROC-AUC.
+      </p>
+
+      <h3 class="chart-title">Baseline versus Logistic Regression</h3>
+      <div class="chart-card">
+        <p class="chart-label">Precision@50</p>
+        <div class="bar-row">
+          <span>Baseline</span>
+          <div class="bar-track"><div class="bar navy" style="width:80%"></div></div>
+          <b>80%</b>
+        </div>
+        <div class="bar-row">
+          <span>Logistic Regression</span>
+          <div class="bar-track"><div class="bar red" style="width:94%"></div></div>
+          <b>94%</b>
+        </div>
+        <p class="chart-label">Precision@100</p>
+        <div class="bar-row">
+          <span>Baseline</span>
+          <div class="bar-track"><div class="bar navy" style="width:81%"></div></div>
+          <b>81%</b>
+        </div>
+        <div class="bar-row">
+          <span>Logistic Regression</span>
+          <div class="bar-track"><div class="bar red" style="width:96%"></div></div>
+          <b>96%</b>
+        </div>
+      </div>
+      <p class="caption">
+        Both methods were evaluated on the same grouped test observations.
+        Baseline zero-score ties can affect its Precision@K ranking.
+      </p>
+
+      <h3 class="chart-title">Feature ablation: the role of average position</h3>
+      <div class="chart-card">
+        <p class="chart-label">ROC-AUC</p>
+        <div class="bar-row">
+          <span>All five features</span>
+          <div class="bar-track"><div class="bar red" style="width:66.26%"></div></div>
+          <b>0.6626</b>
+        </div>
+        <div class="bar-row">
+          <span>Without avg_position</span>
+          <div class="bar-track"><div class="bar navy" style="width:58.96%"></div></div>
+          <b>0.5896</b>
+        </div>
+        <p class="chart-label">Precision@100</p>
+        <div class="bar-row">
+          <span>All five features</span>
+          <div class="bar-track"><div class="bar red" style="width:96%"></div></div>
+          <b>96%</b>
+        </div>
+        <div class="bar-row">
+          <span>Without avg_position</span>
+          <div class="bar-track"><div class="bar navy" style="width:74%"></div></div>
+          <b>74%</b>
+        </div>
+      </div>
+      <p class="caption">
+        Removing average position reduced ROC-AUC by 0.0730 and Precision@100
+        by 22 percentage points.
+      </p>
+
+      <h3 class="chart-title">Action playbook distribution</h3>
+      <figure class="figure-card">
+        <img src="../work/figures/w07_action_distribution.png"
+             alt="Distribution of recommended actions in the Week 7 action playbook">
+        <figcaption>
+          Distribution of action categories generated by the prioritization
+          workflow. This chart describes the playbook output, not verified
+          business impact.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">05 / RECOMMENDATIONS</p>
+      <h2>From prediction to investigation</h2>
+      <div class="recommendation-list">
+        <article>
+          <span>01</span>
+          <div><h3>Review title and metadata</h3><p>Investigate visible content with CTR gaps.</p></div>
+        </article>
+        <article>
+          <span>02</span>
+          <div><h3>Audit editorial quality</h3><p>Review content with high visibility and position risk.</p></div>
+        </article>
+        <article>
+          <span>03</span>
+          <div><h3>Investigate and monitor</h3><p>Check risk signals in low-exposure content.</p></div>
+        </article>
+        <article>
+          <span>04</span>
+          <div><h3>Protect and monitor</h3><p>Continue monitoring visible content with lower model risk.</p></div>
+        </article>
+      </div>
+      <p class="small-note">
+        The playbook uses model risk score multiplied by log(1 + impressions)
+        as a prioritization heuristic. It is not an ROI estimate or a calibrated
+        probability.
+      </p>
+    </section>
+
+    <section class="section limitations" id="limitations">
+      <p class="eyebrow">06 / LIMITATIONS</p>
+      <h2>What these results do not prove</h2>
+      <ul>
+        <li>Results describe one grouped validation sample, not guaranteed future performance.</li>
+        <li>The grouped test set contains only 10 held-out clients.</li>
+        <li>Average position is closely related to the target construction and contributes substantially to model performance.</li>
+        <li>The baseline selected only 38 test items with non-zero scores and had 0.20% recall.</li>
+        <li>Predicted associations do not establish causality or prove that editorial changes improve rankings.</li>
+      </ul>
+    </section>
+
+    <section class="section reproducibility">
+      <p class="eyebrow">07 / REPRODUCIBILITY</p>
+      <h2>Explore the project</h2>
+      <p>
+        The project notebooks document data preparation, leakage checks,
+        baseline development, model evaluation, validation and action
+        prioritization.
+      </p>
+      <a class="primary-link" href="https://github.com/irene1407/ML-1"
+         target="_blank" rel="noopener">Explore GitHub repository ↗</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand">FLYRANK <span>RESEARCH</span></div>
+    <p>ML Internship Capstone · E Shirley Iren · 2026</p>
+    <p>Data credit: <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank</a></p>
+  </footer>
+</body>
+</html>
